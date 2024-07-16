@@ -1,0 +1,24 @@
+local name = "Benjamin"
+local name2 = "Ethan"
+
+print(name)
+print(name2)
+
+
+-- Create variable for easy reference to our Lava Bricks folder
+local LavaBricks = game.Workspace:WaitForChild('Lava Bricks'):GetChildren()
+
+
+for brick, LavaBrick in LavaBricks do 
+
+	LavaBrick.Touched:Connect(function(object)
+
+		local potentialPlayer = game.Players:GetPlayerFromCharacter(object.Parent)
+
+		if potentialPlayer then
+			-- Set player's character health to 0, which will kill them
+			potentialPlayer.Character.Humanoid.Health = 0
+		end
+	end)
+
+end
