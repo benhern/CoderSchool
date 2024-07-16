@@ -1,0 +1,75 @@
+
+--Assigning object for better understanding 
+local ball = game.ReplicatedStorage.spawn_ball
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()	--An Event
+local debounce = false	--used for spamming 
+
+
+
+local CollectionService = game:GetService("CollectionService")
+local RollingFrictionConnections = {}
+local FrictionConstant = 100
+
+
+--Function to add friction as ball is moving to slow down naturally
+local function AddRollingFriction(part: BasePart)
+	
+	--Creating an attachment and angular velocity to the part (which is ball for us)
+	local attachment = Instance.new("Attachment")
+	attachment.Name = "FrictionAttachment"
+	attachment.Parent = part
+
+	local av = Instance.new("AngularVelocity")
+	av.Name = "FrictionAngularVelocity"
+	av.AngularVelocity = Vector3.new(0, 0, 0)
+	av.MaxTorque = FrictionConstant
+	av.Attachment0 = attachment
+	av.Parent = part
+end
+
+
+
+CollectionService:GetInstanceAddedSignal("RollingFriction"):Connect(AddRollingFriction)
+CollectionService:GetInstanceRemovedSignal("RollingFriction"):Connect(function(part)
+	part.FrictionAttachment:Destroy()
+	part.FrictionAngularVelocity:Destroy()
+end)
+
+
+
+
+mouse.Button1Down:connect(function()
+	if debounce == false then
+		
+		debounce = true
+		--local new_ball = ball:Clone()
+		--new_ball.Parent = workspace
+		
+		--new_ball.Anchored = false
+		--new_ball.CanCollide = true
+		--new_ball.Position = player.Character.HumanoidRootPart.CFrame * Vector3.new(0,0,-10)
+		
+		
+		--Creating the ball and adding in attributes 
+		local ball = Instance.new("Part")
+		ball.Size = Vector3.new(3,3,3)
+		ball.Shape = Enum.PartType.Ball
+		ball.Position = player.Character.HumanoidRootPart.CFrame * Vector3.new(0,0,-10)
+		ball.Anchored = false
+		ball.Parent = workspace
+		ball.Material = Enum.Material.Plastic
+
+	
+		--Looking in the collection and attaching function that is associated with tag
+		--To detach, you would RemoveTag()
+		CollectionService:AddTag(ball, "RollingFriction")		
+		wait(1)
+		debounce = false
+	end
+	
+	print("Mouse Clicked!!")
+	
+	
+	
+end)
