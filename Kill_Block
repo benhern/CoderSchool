@@ -1,0 +1,17 @@
+local part = game.Workspace.Moving_Platform
+part.Material = Enum.Material.CrackedLava
+
+	part.Touched:Connect(function(object)
+		-- 'object' is whatever touched the LavaBrick. Could be a player, could be a part...
+		-- Check to see if our object is an actual player
+		local potentialPlayer = game.Players:GetPlayerFromCharacter(object.Parent)
+
+		if potentialPlayer then
+			-- Set player's character health to 0, which will kill them
+			potentialPlayer.Character.Humanoid.Health = 0
+			
+			
+
+			
+		end
+	end)
