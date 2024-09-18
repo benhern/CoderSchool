@@ -1,5 +1,5 @@
-local part = game.Workspace.Moving_Platform
-part.Material = Enum.Material.CrackedLava
+local part = Script.parent
+part.Material = Enum.Material.CrackedLava -- Change the material if you would like to lave, grass water etc...
 
 	part.Touched:Connect(function(object)
 		-- 'object' is whatever touched the LavaBrick. Could be a player, could be a part...
