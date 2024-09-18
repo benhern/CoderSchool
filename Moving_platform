@@ -1,4 +1,4 @@
-local Part = game.Workspace.Moving_Platform -- Change this to your part
+local Part = Script.parent
 local TweenService = game:GetService("TweenService") 
 local Pos = Vector3.new(-20, -6.5, -248) -- Change this to the position you want part to move to
 
