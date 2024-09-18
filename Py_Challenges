@@ -1,0 +1,23 @@
+#Challenges
+
+#Make a variable that is called "sport" and assign it a sport
+
+#print out the variable "sport"
+
+#Make 2 variables that have points for one team and one for the other team
+
+
+#Print out the following "Team1 has {} points and Team 2 has {} points!" in ONE PRINT STATEMENT NO TWO PRINT STATEMENT
+
+
+#Check to see who won and then print out "{} is the winner!!"
+
+
+
+
+
+
+# number = input("Please enter a number: ")
+# #print out variable
+# str = input("Please enter a string")
+# #Print out variable
