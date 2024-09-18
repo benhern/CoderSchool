@@ -1,14 +1,8 @@
-local name = "Benjamin"
-local name2 = "Ethan"
-
-print(name)
-print(name2)
-
-
+-- Create a folder of lavabrick parts 
 -- Create variable for easy reference to our Lava Bricks folder
 local LavaBricks = game.Workspace:WaitForChild('Lava Bricks'):GetChildren()
 
-
+-- We loopd through each part and attach the "Kill Brick" logic/script
 for brick, LavaBrick in LavaBricks do 
 
 	LavaBrick.Touched:Connect(function(object)
