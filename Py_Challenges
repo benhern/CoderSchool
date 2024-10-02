@@ -44,6 +44,24 @@
 # printing with variables ->   print(f"{variable}")
 
 
+# ---------------------------------  10/2  ---------------------------------
+
+
+
+#Create a program that runs forever and shows a random number everytime 'R' is entered
+# create a variable that will ask AND hold the user input
+
+# create the while loop that makes it run forever
+
+# check the variable to see if R was entered
+
+# IF it was entered then print a random number
+
+# ELSE tell the user that this is not a valid value to enter
+
+# ask the user again using that same variable
+
+
 
 
 
