@@ -1,14 +1,25 @@
-local Part = Script.parent
-local TweenService = game:GetService("TweenService") 
-local Pos = Vector3.new(-20, -6.5, -248) -- Change this to the position you want part to move to
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
 
-local Moving_Info = TweenInfo.new(
-	2, --the amount of seconds you want it to take
-	Enum.EasingStyle.Quad,
-	Enum.EasingDirection.InOut,
-	100, --The amount of time you want it to repeat
-	true, --Whether you want it to reverse back to the original position when it's done
-	1 -- how much time should delay between each repitition
-)
+local part = script.Parent
+local tweenInfo = TweenInfo.new(2, Enum.EasingStyle.Cubic,Enum.EasingDirection.InOut, -1, true)
 
-TweenService:Create(Part, Moving_Info, {Position = Pos}):Play()
+local tween = TweenService:Create(part, tweenInfo, {
+	CFrame = part.CFrame * CFrame.new(0, 0, -10)
+})
+
+tween:Play()
+
+local lastposition = part.Position
+
+RunService.Stepped:Connect(function(_, deltaTime)
+	local currentPosition = part.Position
+	local deltaposition = currentPosition - lastposition
+
+	local velocity = deltaposition / deltaTime
+
+	part.AssemblyLinearVelocity = velocity
+
+	lastposition = currentPosition
+
+end)
