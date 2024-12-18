@@ -1,0 +1,166 @@
+#include <stdio.h>
+#include <string.h>
+
+
+#define BLUE 11
+#define GREEN 3
+#define YELLOW 10
+
+
+
+// Example 1 - Receiving single characters
+
+const byte numChars = 32;
+char receivedChars[numChars];   // an array to store the received data
+
+unsigned long startMillis;  //some global variables available anywhere in the program
+unsigned long currentMillis;
+const unsigned long period = 1000;  
+unsigned long tap = 0;
+
+boolean newData = false;
+
+
+void setup() {
+    Serial.begin(9600);
+    startMillis = millis();  //initial start time
+
+    Serial.println("<Arduino is ready>");
+}
+
+void loop() {
+    recvWithEndMarker();
+
+    photoresister_lightDetection();
+    //show_lights();
+    showNewData();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void recvWithEndMarker() {
+    static byte ndx = 0;
+    char endMarker = '\n';
+    char rc;
+    
+    //This runs fast so it needs to add in all the incoming chars before moving onto the new input
+    while (Serial.available() > 0 && newData == false) {
+        rc = Serial.read();   //Holding each char that is incoming 
+
+        //Checks if it is not a new line
+        if (rc != endMarker) {
+            receivedChars[ndx] = rc;
+            ndx++;
+            //Checks that we are at the end of the incoming data and sets it true length  
+            if (ndx >= numChars) {
+                ndx = numChars - 1;
+            }
+        }
+        else {
+          //null terminates the array at the end 
+            receivedChars[ndx] = '\0'; // terminate the string
+            ndx = 0;
+            newData = true;   //Getting ready for a new input
+        }
+    }
+}
+
+
+
+void photoresister_lightDetection(){
+    int value = analogRead(A0);
+    
+    Serial.println(value);
+    Serial.println(tap);
+
+
+    //Need to do!!
+    currentMillis = millis();
+    if (currentMillis - startMillis >= period){
+
+
+
+
+
+
+
+      }
+
+      
+      
+      startMillis = currentMillis;  //IMPORTANT to save the start time of the current LED state.
+    }
+
+    // if(value < 1023) {
+    //     digitalWrite(BLUE, HIGH);
+    //     digitalWrite(GREEN, HIGH);
+    //     digitalWrite(YELLOW, HIGH);
+
+    // }
+
+    // else{
+    //   digitalWrite(BLUE, LOW);
+    //   digitalWrite(GREEN, LOW);
+    //   digitalWrite(YELLOW, LOW);
+    // }
+}
+
+
+
+
+
+void show_lights() {
+    if(strcmp(receivedChars,"off") == 0){
+      digitalWrite(BLUE, LOW);
+      digitalWrite(GREEN, LOW);
+      digitalWrite(YELLOW, LOW);
+    }
+    if(strcmp(receivedChars,"on") == 0){
+        digitalWrite(BLUE, HIGH);
+        digitalWrite(GREEN, HIGH);
+        digitalWrite(YELLOW, HIGH);
+      }
+    if(strcmp(receivedChars,"BLUE") == 0){
+        digitalWrite(BLUE, HIGH);
+        digitalWrite(GREEN, LOW);
+        digitalWrite(YELLOW, LOW);
+      }
+    if(strcmp(receivedChars,"GREEN") == 0){
+        digitalWrite(BLUE, LOW);
+        digitalWrite(GREEN, HIGH);
+        digitalWrite(YELLOW, LOW);
+      }
+    if(strcmp(receivedChars,"YELLOW") == 0){
+        digitalWrite(BLUE, LOW);
+        digitalWrite(GREEN, LOW);
+        digitalWrite(YELLOW, HIGH);
+      }
+}
+
+
+
+void showNewData() {
+    if (newData == true) {
+        Serial.print("DATA: ");
+        Serial.println(receivedChars);
+        newData = false;
+    }
+}
+
+
+
+
+
+
+
