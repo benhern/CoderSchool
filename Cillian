@@ -1,0 +1,30 @@
+
+# computerstuff = ["rock","scissors","paper"]
+# userstuff = input("rock or paper or scissors? ---> ")
+# randomNum = random.randint(0,2)
+# computerchoice = computerstuff[randomNum]
+# print(f"Computer chose: {computerchoice}")
+
+# wincounter = 0
+# computerwin = 0
+
+# while True:
+#   if computerchoice == userstuff:
+#     print ("tie") 
+#   elif userstuff == "rock" and computerchoice != "paper":
+#     wincounter += 1
+#     print("win")
+#   elif userstuff == "paper" and computerchoice != "scissors":
+#     wincounter += 1
+#     print("win")
+#   elif userstuff == "scissors" and computerchoice != "rock":
+#     wincounter += 1
+#     print("win")
+#   else:
+#     computerwin += 1
+#     print("you lose")
+    
+#   userstuff = input("rock or paper or scissors? ---> ")
+#   randomNum = random.randint(0,2)
+#   computerchoice = computerstuff[randomNum]
+#   print(f"Computer chose: {computerchoice}")
