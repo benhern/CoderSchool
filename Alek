@@ -1,0 +1,21 @@
+local prompt = script.Parent:WaitForChild("ProximityPrompt")
+
+prompt.Triggered:Connect(function(player)
+
+	local character = player.Character
+	if not character then return end
+	
+	local hand = character:FindFirstChild("RightHand") or character:FindFirstChild("Right Arm")
+	if not hand then return end
+	
+	local item = script.Parent
+	
+	item.Parent = character
+	item.Position = hand.Position
+	
+	local weld = Instance.new("WeldConstraint")
+	weld.Part0 = hand
+	weld.Part1 = item
+	weld.Parent = item
+
+end)
